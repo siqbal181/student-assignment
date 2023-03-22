@@ -33,12 +33,13 @@ class ClassManager
         ]
     end
 
-    def add_class
+    def add_class(class) # class is a string
         # returns nothing
         # adds class to the @classes hash array
+        # ask the date of the class
     end
 
-    def delete_class
+    def delete_class(class) # class is a string
         # returns nothing
         # remotes class from the @classes hash array
     end
@@ -59,12 +60,13 @@ class AssignmentManager
 
     def add_assignment
         # returns nothing
-        # adds class to the @classes hash array
+        # adds assignment to the @assignment hash array
+        # making due to ask separately the assignment and due date
     end
 
     def delete_assignment
         # returns nothing
-        # remotes class from the @classes hash array
+        # remotes assignment from the @assignment hash array
     end
 
     def format_assignment_display
@@ -117,15 +119,60 @@ _Create examples of the classes being used together in different situations and
 combinations that reflect the ways in which the system will be used._
 
 ```ruby
-# EXAMPLE
 
-# Gets all tracks
-library = MusicLibrary.new
-track_1 = Track.new("Carte Blanche", "Veracocha")
-track_2 = Track.new("Synaesthesia", "The Thrillseekers")
-library.add(track_1)
-library.add(track_2)
-library.all # => [track_1, track_2]
+# ClassManager to Calendar
+# It adds a class to the classes list and the calendar shows the classes
+class_manager = ClassManager.new
+class_manager.add_class("History")
+class_manager.add_class("Geography")
+
+calendar = Calendar.new
+expect(calendar.display_classes).to eq "class: History, class: Geography"
+
+# It deletes a class from class list and calendar shows updated classes
+class_manager = ClassManager.new
+class_manager.add_class("History")
+class_manager.add_class("Geography")
+class_manager.delete_class("History")
+
+calendar = Calendar.new
+expect(calendar.display_classes).to eq "class: \"History\" Date: 03/07/2023"
+
+# AssignmentManager to Calendar
+# Add assignment to the assignment list and the calendar shows the assignments
+assignment_manager = ClassManager.new
+assignment_manager.add_assignment("History Paper")
+assignment_manager.add_assignment("Geography Essay") # when is it due?
+
+calendar = Calendar.new
+expect(calendar.display_assignments).to eq "History Paper", "Geography Essay"
+
+# It deletes a assignment from assignment list and calendar shows updated assignments
+assignment_manager = ClassManager.new
+assignment_manager.add_assignment("History Paper")
+assignment_manager.add_assignment("Geography Essay") # when is it due?
+class_manager.delete_assignment("History Paper")
+
+calendar = Calendar.new
+expect(calendar.display_assignments).to eq "Geography Essay"
+
+# Assignment Reminder
+# It shows the list of assignments which are due soon
+assignment_manager = ClassManager.new
+assignment_manager.add_assignment("History Paper", 30/03/2023)
+assignment_manager.add_assignment("Geography Paper", 23/03/2023)
+
+assignment_reminder = AssignmentReminder.new(assignment_manager)
+expect(assignment_reminder.due_soon_reminder).to eq("You have some assignments due soon:\nGeography Paper - Due in 13 hours")
+
+# It shows the list of assignments which are ocer
+assignment_manager = ClassManager.new
+assignment_manager.add_assignment("History Paper", 30/03/2023)
+assignment_manager.add_assignment("Geography Paper", 21/03/2023)
+
+assignment_reminder = AssignmentReminder.new(assignment_manager)
+expect(assignment_reminder.overdue_reminder).to eq("You have some assignments which are overdue:\nGeography Paper - 13 hours late")
+
 ```
 
 ## 4. Create Examples as Unit Tests
@@ -134,11 +181,22 @@ _Create examples, where appropriate, of the behaviour of each relevant class at
 a more granular level of detail._
 
 ```ruby
-# EXAMPLE
 
-# Constructs a track
-track = Track.new("Carte Blanche", "Veracocha")
-track.title # => "Carte Blanche"
+# Class Manager
+# It shows a formatted list of classes once added
+class_manager = ClassManager.new
+class_manager.add_class("History")
+class_manager.add_class("Geography")
+expect(class_manager.format_class_display).to eq("History, Geography")
+
+# Assignment Manager
+# It shows a formatted list of assignments once added
+assignment_manager = ClassManager.new
+assignment_manager.add_assignment("History Paper")
+assignment_manager.add_assignment("Geography Essay") # when is it due?
+expect(assignment_manager.format_assignment_display).to eq("History Paper", "Geography Essay")
+
+
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
