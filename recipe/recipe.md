@@ -122,30 +122,30 @@ combinations that reflect the ways in which the system will be used._
 
 # ClassManager to Calendar
 # It adds a class to the classes list and the calendar shows the classes
-class_manager = ClassManager.new
-class_manager.add_class("History")
-class_manager.add_class("Geography")
+# class_manager = ClassManager.new
+# class_manager.add_class("History")
+# # class_manager.add_class("Geography")
 
-calendar = Calendar.new
-expect(calendar.display_classes).to eq "class: History, class: Geography"
+# calendar = Calendar.new
+# expect(calendar.display_classes).to eq "class: History, class: Geography"
 
-# It deletes a class from class list and calendar shows updated classes
-class_manager = ClassManager.new
-class_manager.add_class("History")
-class_manager.add_class("Geography")
-class_manager.delete_class("History")
+# # # AssignmentManager to Calendar
+# # # Add assignment to the assignment list and the calendar shows the assignments
+# # assignment_manager = ClassManager.new
+# # assignment_manager.add_assignment("History Paper")
+# # assignment_manager.add_assignment("Geography Essay") # when is it due?
 
-calendar = Calendar.new
-expect(calendar.display_classes).to eq "class: \"History\" Date: 03/07/2023"
+# calendar = Calendar.new
+# expect(calendar.display_assignments).to eq "History Paper", "Geography Essay"
 
-# AssignmentManager to Calendar
-# Add assignment to the assignment list and the calendar shows the assignments
-assignment_manager = ClassManager.new
-assignment_manager.add_assignment("History Paper")
-assignment_manager.add_assignment("Geography Essay") # when is it due?
+# # It deletes a class from class list and calendar shows updated classes
+# class_manager = ClassManager.new
+# class_manager.add_class("History")
+# class_manager.add_class("Geography")
+# class_manager.delete_class("History")
 
-calendar = Calendar.new
-expect(calendar.display_assignments).to eq "History Paper", "Geography Essay"
+# calendar = Calendar.new
+# expect(calendar.display_classes).to eq "class: \"History\" Date: 03/07/2023"
 
 # It deletes a assignment from assignment list and calendar shows updated assignments
 assignment_manager = ClassManager.new
@@ -182,19 +182,19 @@ a more granular level of detail._
 
 ```ruby
 
-# Class Manager
-# It shows a formatted list of classes once added
-class_manager = ClassManager.new
-class_manager.add_class("History")
-class_manager.add_class("Geography")
-expect(class_manager.format_class_display).to eq("History, Geography")
+# # Class Manager
+# # It shows a formatted list of classes once added
+# class_manager = ClassManager.new
+# class_manager.add_class("History")
+# class_manager.add_class("Geography")
+# expect(class_manager.format_class_display).to eq("History, Geography")
 
-# Assignment Manager
-# It shows a formatted list of assignments once added
-assignment_manager = ClassManager.new
-assignment_manager.add_assignment("History Paper")
-assignment_manager.add_assignment("Geography Essay") # when is it due?
-expect(assignment_manager.format_assignment_display).to eq("History Paper", "Geography Essay")
+# # Assignment Manager
+# # It shows a formatted list of assignments once added
+# assignment_manager = ClassManager.new
+# assignment_manager.add_assignment("History Paper")
+# assignment_manager.add_assignment("Geography Essay") # when is it due?
+# expect(assignment_manager.format_assignment_display).to eq("History Paper", "Geography Essay")
 
 
 ```

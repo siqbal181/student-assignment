@@ -33,8 +33,26 @@ class AssignmentManager
     end
 
     def delete_assignment
-        # returns nothing
-        # remotes assignment from the @assignment hash array
+        loop do
+            @io.puts "Type the number of the assignment you want to delete. Type \"done\" when complete."
+            @io.puts format_assignment_display
+            delete_assignment = @io.gets.chomp
+            break if delete_assignment == "done"
+        
+            # get the index of delete assignment input to check for incorrect number or bigger then length
+            delete_assignment = delete_assignment.to_i
+            if delete_assignment < 1 || delete_assignment > @assignments.length
+              @io.puts "Invalid input. Please enter a number between 1 and #{@assignments.length}"
+              next
+            end
+            
+            assignment_index = (delete_assignment) - 1
+            deleted_assignment = @assignments.delete_at(assignment_index)
+        
+            @io.puts "This assignment has been deleted. Here is your assignment list: "
+            @io.puts format_assignment_display
+    
+        end
     end
 
     def format_assignment_display
