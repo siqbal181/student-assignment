@@ -147,6 +147,8 @@ combinations that reflect the ways in which the system will be used._
 # calendar = Calendar.new
 # expect(calendar.display_classes).to eq "class: \"History\" Date: 03/07/2023"
 
+
+
 # It deletes a assignment from assignment list and calendar shows updated assignments
 assignment_manager = ClassManager.new
 assignment_manager.add_assignment("History Paper")

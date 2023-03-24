@@ -71,7 +71,7 @@ RSpec.describe "integration test" do
     end
 
     context "given some assignments are first added and then shown on calendar, but later an assignment is deleted" do
-        xit "updates the calendar to show the correct amount of assignments" do
+        it "updates the calendar to show the correct amount of assignments" do
             io = double :io
             class_manager = double :class_manager
 
@@ -86,11 +86,21 @@ RSpec.describe "integration test" do
             expect(io).to receive(:puts).with("Please enter the assignment you want to add, when done type \"done\"")
             expect(io).to receive(:gets).and_return("done")
             expect(io).to receive(:puts).with("Your assignments have been added.")
-            class_manager = ClassManager.new(io)
-            class_manager.add_class
-            class_manager.delete_classes
+
+            expect(io).to receive(:puts).with("Type the number of the assignment you want to delete. Type \"done\" when complete.")
+            expect(io).to receive(:puts).with("1. History Paper, 25-03-2023,\n2. Geography Essay, 26-03-2023")
+            expect(io).to receive(:gets).and_return("1")
+            expect(io).to receive(:puts).with("This assignment has been deleted. Here is your assignment list: ")
+            expect(io).to receive(:puts).with("1. Geography Essay, 26-03-2023")
+            expect(io).to receive(:puts).with("Type the number of the assignment you want to delete. Type \"done\" when complete.")
+            expect(io).to receive(:gets).and_return("done")
+            expect(io).to receive(:puts).with("1. Geography Essay, 26-03-2023")
+
+            assignment_manager = AssignmentManager.new(io)
+            assignment_manager.add_assignment
+            assignment_manager.delete_assignment
             calendar = Calendar.new(class_manager, assignment_manager)
-            expect(calendar.display_classes).to eq "1. Geography, 24-03-2023"
+            expect(calendar.display_assignments).to eq "1. Geography Essay, 26-03-2023"
         end
     end
 end
