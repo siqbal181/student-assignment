@@ -1,46 +1,27 @@
-require "date"
+require 'date'
 
-class AssignmentManager
-  def initialize
-      @assignments = []
-  end
+@assingments = [
+  {assignment_name: "History Paper", due_date: 29/03/2023},
+  {assignment_name: "Geography Essay", due_date: 28/03/2023},
+  {assignment_name: "Math Test", due_date: 23/03/2023},
+  {assignment_name: "Art Project", due_date: 22/03/2023}
+]
 
-  def add_assignment
-      loop do
-          puts "Please enter the assignment you want to add, when done type \"done\""
-          assignment = gets.chomp
-
-        if assignment == "done"
-          puts "Your assignments have been added."
-          break
-        end
-
-        puts "Please enter the date of the assignment in format DD-MM-YYYY"
-        assignment_date_str = gets.chomp
-        begin
-          assignment_date = Date.parse(assignment_date_str)
-        rescue ArgumentError
-          puts "Invalid date format. Please enter a date in the format DD-MM-YYYY"
-          assignment_date_str = gets.chomp
-          retry
-        end
-
-        added_assignment = { assignment_name: assignment, assignment_date: assignment_date_str }
-        @assignments << added_assignment
-      end
-      return format_assignment_display
-  end
-
-  def delete_assignment
-      # returns nothing
-      # remotes assignment from the @assignment hash array
-  end
-
-  def format_assignment_display
-      format = @assignments.map { |assignment| "#{(@assignments.index(assignment))+1}. #{assignment[:assignment_name]}, #{assignment[:assignment_date]}" }
-      format.join(",\n")
-  end
+def current_time
+    d = Date.new() # used to compare the task due date with the current time
+    d.strftime("%d/%m/%y")
+    Date.parse(d).to_date
 end
 
-assignment_manager = AssignmentManager.new
-assignment_manager.add_assignment
+def due_soon_reminder
+    @assignments
+    # returns a reminder when the task is due soon (2 days before)
+    # iterate over hashed array with the due soon tasks
+end
+
+def ovedue_reminder
+    # returns a reminder when the task is overdue (1 minute passed due)
+    # iterate over the hashed array with past due tasks
+end
+
+p current_time

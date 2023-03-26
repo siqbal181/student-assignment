@@ -1,6 +1,7 @@
 require "calendar"
 require "class_manager"
 require "assignment_manager"
+require "assignment_reminder"
 
 RSpec.describe "integration test" do
     it "displays a list of classes the student has" do
